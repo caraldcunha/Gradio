@@ -1,17 +1,18 @@
-import gradio as gr
-gr.close_all()
+from textblob import TextBlob
 
-def getDetails(name, age, preference, hobbies):
-  return f" "
+# Function to analyze sentiment
+def analyze_sentiment(text):
+    analysis = TextBlob(text)
+    polarity = analysis.sentiment.polarity
+    if polarity > 0:
+        return "Positive"
+    elif polarity == 0:
+        return "Neutral"
+    else:
+        return "Negative"
 
-demo = gr.Interface(
-    fn=getDetails,
-    inputs = [gr.Textbox(label="Name: "),
-        gr.Slider(label="Age: "),
-        gr.Radio(label="Subject Preference: ", choices=[]),
-        gr.Checkboxgroup(label='Hobbies:', choices=[])
-    ],
-    outputs=[gr.Textbox()]
-)
-demo.launch()
+# Example usage
+text = "That movie was scary"
+sentiment = analyze_sentiment(text)
+print(f"The sentiment of the text is: {sentiment}")
 
